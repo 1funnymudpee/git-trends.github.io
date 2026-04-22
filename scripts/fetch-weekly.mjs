@@ -23,21 +23,21 @@ function buildCategories(snapshotMoment, windowStart) {
       label: "Established",
       description: "High-star repositories actively maintained this week",
       query: `pushed:>${windowStart} stars:>10000`,
-      maxResults: 30,
+      maxResults: 20,
     },
     {
       key: "new_this_month",
       label: "New This Month",
       description: "Repositories created in the last 30 days gaining traction",
       query: `created:>${formatDate(subtractDays(snapshotMoment, 30))} stars:>50`,
-      maxResults: 30,
+      maxResults: 20,
     },
     {
       key: "rising_stars",
       label: "Rising Stars",
       description: "Repositories created 1-3 months ago with sustained growth",
       query: `created:>${formatDate(subtractDays(snapshotMoment, 90))} created:<${formatDate(subtractDays(snapshotMoment, 30))} stars:>100`,
-      maxResults: 30,
+      maxResults: 20,
     },
   ]
 }
