@@ -7,6 +7,7 @@ const nextConfig = {
     unoptimized: true,
   },
   output: "export",
+  basePath: "/git-trends.github.io",
 };
 
 export default nextConfig;
