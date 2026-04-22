@@ -1,4 +1,4 @@
-import { CalendarDays, ExternalLink, Eye, GitFork, Star } from "lucide-react"
+import { CalendarDays, ExternalLink, Eye, GitFork, Sparkles, Star } from "lucide-react"
 import { LANGUAGE_COLORS } from "@/lib/languages"
 import type { TrendingRepo } from "@/lib/types"
 
@@ -56,6 +56,13 @@ export function RepoCard({
         {displayDescription && (
           <p className="line-clamp-2 text-sm text-muted-foreground">
             {displayDescription}
+          </p>
+        )}
+
+        {repo.trending_reason && (
+          <p className="flex items-start gap-1.5 text-sm text-muted-foreground/90">
+            <Sparkles className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
+            <span className="line-clamp-2">{repo.trending_reason}</span>
           </p>
         )}
 

@@ -5,10 +5,16 @@ import { cn } from "@/lib/utils"
 import { LANGUAGES } from "@/lib/languages"
 import { RepoCard, RepoCardSkeleton } from "@/components/repo-card"
 import { AlertCircle, ArrowDownUp, ChevronLeft, ChevronRight, Database } from "lucide-react"
-import { filterByLanguage, getLatestSnapshot } from "@/lib/snapshot"
-import type { TrendingRepo } from "@/lib/types"
+import {
+  filterByLanguage,
+  getAllCategories,
+  getCategoryRepos,
+  getLatestSnapshot,
+} from "@/lib/snapshot"
+import type { CategorySection, WeeklySnapshot } from "@/lib/types"
 
 const ITEMS_PER_PAGE = 20
+const DEFAULT_CATEGORY_KEY = "new_this_month"
 
 const SORT_OPTIONS = [
   { value: "rank", label: "Weekly Rank" },
@@ -16,9 +22,10 @@ const SORT_OPTIONS = [
 ]
 
 export function TrendingList() {
-  const [repos, setRepos] = useState<TrendingRepo[]>([])
+  const [snapshot, setSnapshot] = useState<WeeklySnapshot | null>(null)
   const [language, setLanguage] = useState("")
   const [sort, setSort] = useState("rank")
+  const [activeCategoryKey, setActiveCategoryKey] = useState(DEFAULT_CATEGORY_KEY)
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -30,9 +37,13 @@ export function TrendingList() {
       try {
         setIsLoading(true)
         setError(null)
-        const snapshot = await getLatestSnapshot()
+        const nextSnapshot = await getLatestSnapshot()
         if (!cancelled) {
-          setRepos(snapshot.repos)
+          setSnapshot(nextSnapshot)
+          const categories = getAllCategories(nextSnapshot)
+          if (!categories.some((category) => category.key === DEFAULT_CATEGORY_KEY)) {
+            setActiveCategoryKey(categories[0]?.key ?? DEFAULT_CATEGORY_KEY)
+          }
         }
       } catch (loadError) {
         if (!cancelled) {
@@ -56,9 +67,24 @@ export function TrendingList() {
     }
   }, [])
 
+  const categories = useMemo<CategorySection[]>(
+    () => (snapshot ? getAllCategories(snapshot) : []),
+    [snapshot]
+  )
+
+  const categoryRepos = useMemo(
+    () => (snapshot ? getCategoryRepos(snapshot, activeCategoryKey) : []),
+    [activeCategoryKey, snapshot]
+  )
+
+  const activeCategory = useMemo(
+    () => categories.find((category) => category.key === activeCategoryKey) ?? null,
+    [activeCategoryKey, categories]
+  )
+
   const filteredRepos = useMemo(
-    () => filterByLanguage(repos, language),
-    [language, repos]
+    () => filterByLanguage(categoryRepos, language),
+    [categoryRepos, language]
   )
 
   const sortedRepos = useMemo(() => {
@@ -83,15 +109,34 @@ export function TrendingList() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-2 rounded-lg bg-secondary p-1 text-sm text-muted-foreground">
-          <span
-            className={cn(
-              "flex items-center gap-1.5 rounded-md bg-background px-3 py-1.5 font-medium text-foreground shadow-sm"
-            )}
-          >
-            <Database className="h-3.5 w-3.5" />
-            Weekly Snapshot
-          </span>
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-2 rounded-lg bg-secondary p-1 text-sm text-muted-foreground">
+            {categories.map((category) => (
+              <button
+                key={category.key}
+                type="button"
+                onClick={() => {
+                  setActiveCategoryKey(category.key)
+                  setPage(1)
+                }}
+                className={cn(
+                  "flex items-center gap-1.5 rounded-md px-3 py-1.5 font-medium transition-colors",
+                  activeCategoryKey === category.key
+                    ? "bg-background text-foreground shadow-sm"
+                    : "hover:text-foreground"
+                )}
+              >
+                <Database className="h-3.5 w-3.5" />
+                {category.label}
+              </button>
+            ))}
+          </div>
+
+          {activeCategory && (
+            <p className="text-sm text-muted-foreground">
+              {activeCategory.description}
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col gap-3 md:flex-row">

@@ -14,8 +14,33 @@ const latestOutputPath = path.join(
 const weeklyOutputDir = path.join(repoRoot, "public", "data", "weekly")
 
 const PER_PAGE = 25
-const MAX_RESULTS = 100
 const MAX_RETRIES = 3
+
+function buildCategories(snapshotMoment, windowStart) {
+  return [
+    {
+      key: "established",
+      label: "Established",
+      description: "High-star repositories actively maintained this week",
+      query: `pushed:>${windowStart} stars:>10000`,
+      maxResults: 30,
+    },
+    {
+      key: "new_this_month",
+      label: "New This Month",
+      description: "Repositories created in the last 30 days gaining traction",
+      query: `created:>${formatDate(subtractDays(snapshotMoment, 30))} stars:>50`,
+      maxResults: 30,
+    },
+    {
+      key: "rising_stars",
+      label: "Rising Stars",
+      description: "Repositories created 1-3 months ago with sustained growth",
+      query: `created:>${formatDate(subtractDays(snapshotMoment, 90))} created:<${formatDate(subtractDays(snapshotMoment, 30))} stars:>100`,
+      maxResults: 30,
+    },
+  ]
+}
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -43,7 +68,7 @@ function requiredNumber(value) {
   return typeof value === "number" ? value : 0
 }
 
-function mapRepo(item, rank, snapshotDate) {
+function mapRepo(item, rank, snapshotDate, categoryKey) {
   const [owner = "", name = ""] = requiredString(item.full_name).split("/")
 
   return {
@@ -64,15 +89,23 @@ function mapRepo(item, rank, snapshotDate) {
     created_at: requiredString(item.created_at),
     rank,
     snapshot_date: snapshotDate,
+    category_key: categoryKey,
     summary_short: null,
     summary_medium: null,
     tags: null,
     category: null,
+    trending_reason: null,
   }
 }
 
 function validateSnapshot(snapshot) {
-  if (!snapshot || !Array.isArray(snapshot.repos) || snapshot.repos.length === 0) {
+  if (
+    !snapshot ||
+    !Array.isArray(snapshot.repos) ||
+    snapshot.repos.length === 0 ||
+    !Array.isArray(snapshot.categories) ||
+    snapshot.categories.length === 0
+  ) {
     throw new Error("Generated snapshot is empty.")
   }
 
@@ -95,6 +128,33 @@ function validateSnapshot(snapshot) {
         throw new Error(`Generated snapshot is missing required field: ${field}`)
       }
     }
+  }
+}
+
+async function fetchCategoryRepos(category, snapshotDate, token) {
+  const pages = Math.ceil(category.maxResults / PER_PAGE)
+  const allItems = []
+
+  for (let page = 1; page <= pages; page += 1) {
+    const payload = await fetchGitHubPage(category.query, page, token)
+    const items = Array.isArray(payload.items) ? payload.items : []
+    allItems.push(...items)
+  }
+
+  const repos = allItems
+    .sort(
+      (a, b) =>
+        requiredNumber(b.stargazers_count) - requiredNumber(a.stargazers_count) ||
+        requiredNumber(a.id) - requiredNumber(b.id)
+    )
+    .slice(0, category.maxResults)
+    .map((item, index) => mapRepo(item, index + 1, snapshotDate, category.key))
+
+  return {
+    key: category.key,
+    label: category.label,
+    description: category.description,
+    repos,
   }
 }
 
@@ -165,31 +225,36 @@ async function main() {
   const snapshotMoment = startOfDayUtc(new Date())
   const snapshotDate = formatDate(snapshotMoment)
   const windowStart = formatDate(subtractDays(snapshotMoment, 7))
-  const query = `pushed:>${windowStart} stars:>500`
-  const pages = Math.ceil(MAX_RESULTS / PER_PAGE)
-  const allItems = []
+  const categories = buildCategories(snapshotMoment, windowStart)
+  const categorySections = []
 
-  for (let page = 1; page <= pages; page += 1) {
-    const payload = await fetchGitHubPage(query, page, token)
-    const items = Array.isArray(payload.items) ? payload.items : []
-    allItems.push(...items)
+  for (const category of categories) {
+    console.log(`Fetching ${category.label}...`)
+    const section = await fetchCategoryRepos(category, snapshotDate, token)
+    categorySections.push(section)
   }
 
-  const rankedRepos = allItems
-    .sort(
-      (a, b) =>
-        requiredNumber(b.stargazers_count) - requiredNumber(a.stargazers_count) ||
-        requiredNumber(a.id) - requiredNumber(b.id)
-    )
-    .slice(0, MAX_RESULTS)
-    .map((item, index) => mapRepo(item, index + 1, snapshotDate))
+  const mergedRepos = []
+  const seenRepoIds = new Set()
+
+  for (const section of categorySections) {
+    for (const repo of section.repos) {
+      if (seenRepoIds.has(repo.github_repo_id)) {
+        continue
+      }
+
+      seenRepoIds.add(repo.github_repo_id)
+      mergedRepos.push(repo)
+    }
+  }
 
   const snapshot = {
     snapshot_date: snapshotDate,
     window_start: windowStart,
     window_end: snapshotDate,
     generated_at: new Date().toISOString(),
-    repos: rankedRepos,
+    categories: categorySections,
+    repos: mergedRepos,
   }
 
   validateSnapshot(snapshot)
@@ -203,7 +268,7 @@ async function main() {
   )
 
   console.log(
-    `Wrote ${snapshot.repos.length} repositories to public/data/latest-weekly.json and public/data/weekly/${snapshotDate}.json`
+    `Wrote ${snapshot.repos.length} merged repositories across ${snapshot.categories.length} categories to public/data/latest-weekly.json and public/data/weekly/${snapshotDate}.json`
   )
 }
 

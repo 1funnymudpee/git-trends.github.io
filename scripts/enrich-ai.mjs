@@ -13,7 +13,7 @@ const latestSnapshotPath = path.join(
 )
 
 const DEFAULT_MODEL = "gpt-4o-mini"
-const DEFAULT_TOP_N = 30
+const DEFAULT_TOP_N = 10
 const REQUEST_DELAY_MS = 1000
 const MAX_RETRIES = 2
 const VALID_CATEGORIES = new Set([
@@ -33,16 +33,18 @@ const SYSTEM_PROMPT = `You are a technical analyst for a GitHub trending digest.
 Given a GitHub repository's metadata, produce a JSON object with exactly these fields:
 
 {
-  "summary_short": "One concise sentence (under 120 chars) describing what this repo does and why it's notable.",
-  "summary_medium": "2-4 sentences providing more context: what problem it solves, key features, and why it's trending.",
-  "tags": ["3 to 8 lowercase normalized tags describing the repo's domain, tech stack, and use case"],
-  "category": "exactly one of: ai, devtools, infra, frontend, backend, data, security, mobile, gaming, other"
+  "summary_short": "One concise sentence (under 120 chars) describing what this repo does.",
+  "summary_medium": "2-4 sentences providing more context about what it does and key features.",
+  "tags": ["3 to 8 lowercase normalized tags"],
+  "category": "exactly one of: ai, devtools, infra, frontend, backend, data, security, mobile, gaming, other",
+  "trending_reason": "1-2 sentences analyzing why this repository is gaining attention this week. Consider: recent releases, community interest, solving a timely problem, viral content, or ecosystem changes."
 }
 
 Rules:
 - Write in English
 - summary_short must be a single sentence, no line breaks
 - tags should be lowercase, hyphenated for multi-word (e.g. "machine-learning")
+- trending_reason should be specific and analytical, not generic
 - Do not invent facts not present in the input
 - Respond with valid JSON only, no markdown fences`
 
@@ -64,7 +66,7 @@ function normalizeBaseUrl(baseUrl) {
   return baseUrl.replace(/\/+$/, "")
 }
 
-function buildUserPrompt(repo) {
+function buildUserPrompt(repo, categoryLabel) {
   const description = repo.description || "No description provided"
   const language = repo.language || "Unknown"
   const topics = Array.isArray(repo.topics) && repo.topics.length > 0
@@ -77,7 +79,10 @@ Language: ${language}
 Topics: ${topics}
 Stars: ${repo.stars}
 Forks: ${repo.forks}
-Weekly Rank: #${repo.rank}`
+Created: ${repo.created_at}
+Last Pushed: ${repo.pushed_at}
+Trending Category: ${repo.category_key} (${categoryLabel})
+Weekly Rank in Category: #${repo.rank}`
 }
 
 function createNullEnrichment() {
@@ -86,6 +91,35 @@ function createNullEnrichment() {
     summary_medium: null,
     tags: null,
     category: null,
+    trending_reason: null,
+  }
+}
+
+function applyEnrichment(snapshot, repoId, enrichment) {
+  for (const section of snapshot.categories ?? []) {
+    for (const repo of section.repos ?? []) {
+      if (repo.github_repo_id !== repoId) {
+        continue
+      }
+
+      repo.summary_short = enrichment.summary_short
+      repo.summary_medium = enrichment.summary_medium
+      repo.tags = enrichment.tags
+      repo.category = enrichment.category
+      repo.trending_reason = enrichment.trending_reason
+    }
+  }
+
+  for (const repo of snapshot.repos ?? []) {
+    if (repo.github_repo_id !== repoId) {
+      continue
+    }
+
+    repo.summary_short = enrichment.summary_short
+    repo.summary_medium = enrichment.summary_medium
+    repo.tags = enrichment.tags
+    repo.category = enrichment.category
+    repo.trending_reason = enrichment.trending_reason
   }
 }
 
@@ -131,15 +165,16 @@ function parseAiResponse(content) {
     summary_medium: sanitizeString(parsed.summary_medium),
     tags: sanitizeTags(parsed.tags),
     category: sanitizeCategory(parsed.category),
+    trending_reason: sanitizeString(parsed.trending_reason),
   }
 }
 
-async function callAi(baseUrl, apiKey, model, repo) {
+async function callAi(baseUrl, apiKey, model, repo, categoryLabel) {
   const payload = {
     model,
     messages: [
       { role: "system", content: SYSTEM_PROMPT },
-      { role: "user", content: buildUserPrompt(repo) },
+      { role: "user", content: buildUserPrompt(repo, categoryLabel) },
     ],
     temperature: 0.3,
     response_format: { type: "json_object" },
@@ -197,8 +232,12 @@ async function readLatestSnapshot() {
 
   const snapshot = JSON.parse(raw)
 
-  if (!snapshot || !Array.isArray(snapshot.repos) || snapshot.repos.length === 0) {
-    throw new Error("latest-weekly.json is missing repos.")
+  if (
+    !snapshot ||
+    !Array.isArray(snapshot.categories) ||
+    snapshot.categories.length === 0
+  ) {
+    throw new Error("latest-weekly.json is missing categories.")
   }
 
   return snapshot
@@ -229,34 +268,33 @@ async function main() {
   }
 
   const snapshot = await readLatestSnapshot()
-  const repos = [...snapshot.repos].sort((a, b) => a.rank - b.rank)
-  const targetRepos = repos.slice(0, Math.min(topN, repos.length))
+  const categoryEntries = snapshot.categories.flatMap((section) =>
+    [...(section.repos ?? [])]
+      .sort((a, b) => a.rank - b.rank)
+      .slice(0, Math.min(topN, section.repos?.length ?? 0))
+      .map((repo) => ({
+        repo,
+        categoryLabel: section.label,
+      }))
+  )
 
-  for (let index = 0; index < targetRepos.length; index += 1) {
-    const repo = targetRepos[index]
+  for (let index = 0; index < categoryEntries.length; index += 1) {
+    const { repo, categoryLabel } = categoryEntries[index]
 
-    console.log(
-      `[${index + 1}/${targetRepos.length}] Enriching ${repo.full_name}...`
-    )
+    console.log(`[${index + 1}/${categoryEntries.length}] Enriching ${repo.full_name}...`)
 
     try {
-      const enrichment = await callAi(baseUrl, apiKey, model, repo)
-      repo.summary_short = enrichment.summary_short
-      repo.summary_medium = enrichment.summary_medium
-      repo.tags = enrichment.tags
-      repo.category = enrichment.category
+      const enrichment = await callAi(baseUrl, apiKey, model, repo, categoryLabel)
+      applyEnrichment(snapshot, repo.github_repo_id, enrichment)
     } catch (error) {
       const fallback = createNullEnrichment()
-      repo.summary_short = fallback.summary_short
-      repo.summary_medium = fallback.summary_medium
-      repo.tags = fallback.tags
-      repo.category = fallback.category
+      applyEnrichment(snapshot, repo.github_repo_id, fallback)
 
       const message = error instanceof Error ? error.message : String(error)
       console.warn(`Warning: failed to enrich ${repo.full_name}: ${message}`)
     }
 
-    if (index < targetRepos.length - 1) {
+    if (index < categoryEntries.length - 1) {
       await sleep(REQUEST_DELAY_MS)
     }
   }
@@ -264,7 +302,7 @@ async function main() {
   await writeSnapshotFiles(snapshot)
 
   console.log(
-    `AI enrichment finished for ${targetRepos.length} repositories using model ${model}.`
+    `AI enrichment finished for ${categoryEntries.length} repositories using model ${model}.`
   )
 }
 
