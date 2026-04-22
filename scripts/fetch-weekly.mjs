@@ -165,7 +165,7 @@ async function main() {
   const snapshotMoment = startOfDayUtc(new Date())
   const snapshotDate = formatDate(snapshotMoment)
   const windowStart = formatDate(subtractDays(snapshotMoment, 7))
-  const query = `created:>${windowStart}`
+  const query = `pushed:>${windowStart} stars:>500`
   const pages = Math.ceil(MAX_RESULTS / PER_PAGE)
   const allItems = []
 
