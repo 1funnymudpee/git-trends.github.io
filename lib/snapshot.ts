@@ -1,10 +1,12 @@
 import type { TrendingRepo, WeeklySnapshot } from "@/lib/types"
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
 async function readSnapshot(path: string): Promise<WeeklySnapshot> {
-  const response = await fetch(path)
+  const response = await fetch(`${BASE_PATH}${path}`)
 
   if (!response.ok) {
-    throw new Error(`Failed to load snapshot data from ${path}`)
+    throw new Error(`Failed to load snapshot data from ${BASE_PATH}${path}`)
   }
 
   return (await response.json()) as WeeklySnapshot

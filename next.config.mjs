@@ -8,6 +8,9 @@ const nextConfig = {
   },
   output: "export",
   basePath: "/git-trends.github.io",
+  env: {
+    NEXT_PUBLIC_BASE_PATH: "/git-trends.github.io",
+  },
 };
 
 export default nextConfig;
