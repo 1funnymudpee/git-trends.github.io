@@ -1,21 +1,6 @@
-import { Star, GitFork, Eye, ExternalLink } from "lucide-react"
+import { CalendarDays, ExternalLink, Eye, GitFork, Star } from "lucide-react"
 import { LANGUAGE_COLORS } from "@/lib/languages"
-
-interface Repo {
-  id: number
-  full_name: string
-  description: string | null
-  html_url: string
-  stargazers_count: number
-  forks_count: number
-  watchers_count: number
-  language: string | null
-  owner: {
-    login: string
-    avatar_url: string
-  }
-  topics?: string[]
-}
+import type { TrendingRepo } from "@/lib/types"
 
 function formatNumber(num: number): string {
   if (num >= 1000) {
@@ -24,10 +9,19 @@ function formatNumber(num: number): string {
   return num.toString()
 }
 
-export function RepoCard({ repo, rank }: { repo: Repo; rank: number }) {
+export function RepoCard({
+  repo,
+  rank,
+}: {
+  repo: TrendingRepo
+  rank?: number
+}) {
   const langColor = repo.language
     ? LANGUAGE_COLORS[repo.language] || "#8b8b8b"
     : null
+  const displayRank = rank ?? repo.rank
+  const displayDescription = repo.summary_short ?? repo.description
+  const displayTags = repo.tags ?? repo.topics
 
   return (
     <a
@@ -37,7 +31,7 @@ export function RepoCard({ repo, rank }: { repo: Repo; rank: number }) {
       className="group flex gap-4 rounded-lg border border-border bg-card p-4 transition-all hover:border-primary/30 hover:bg-secondary"
     >
       <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-secondary font-mono text-sm text-muted-foreground">
-        {rank}
+        {displayRank}
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-2">
@@ -45,8 +39,8 @@ export function RepoCard({ repo, rank }: { repo: Repo; rank: number }) {
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <img
-                src={repo.owner.avatar_url || "/placeholder.svg"}
-                alt={`${repo.owner.login}'s avatar`}
+                src={repo.avatar_url || "/placeholder.svg"}
+                alt={`${repo.owner}'s avatar`}
                 className="h-5 w-5 rounded-full"
                 width={20}
                 height={20}
@@ -59,9 +53,9 @@ export function RepoCard({ repo, rank }: { repo: Repo; rank: number }) {
           <ExternalLink className="h-4 w-4 flex-shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
         </div>
 
-        {repo.description && (
+        {displayDescription && (
           <p className="line-clamp-2 text-sm text-muted-foreground">
-            {repo.description}
+            {displayDescription}
           </p>
         )}
 
@@ -77,21 +71,25 @@ export function RepoCard({ repo, rank }: { repo: Repo; rank: number }) {
           )}
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             <Star className="h-3.5 w-3.5" />
-            {formatNumber(repo.stargazers_count)}
+            {formatNumber(repo.stars)}
           </span>
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             <GitFork className="h-3.5 w-3.5" />
-            {formatNumber(repo.forks_count)}
+            {formatNumber(repo.forks)}
           </span>
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             <Eye className="h-3.5 w-3.5" />
-            {formatNumber(repo.watchers_count)}
+            {formatNumber(repo.watchers)}
+          </span>
+          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            <CalendarDays className="h-3.5 w-3.5" />
+            {repo.snapshot_date}
           </span>
         </div>
 
-        {repo.topics && repo.topics.length > 0 && (
+        {displayTags && displayTags.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
-            {repo.topics.slice(0, 5).map((topic) => (
+            {displayTags.slice(0, 5).map((topic) => (
               <span
                 key={topic}
                 className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary"

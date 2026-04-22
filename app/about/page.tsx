@@ -9,27 +9,27 @@ export const metadata = {
 const features = [
   {
     icon: TrendingUp,
-    title: "Trending Discovery",
+    title: "Weekly Discovery",
     description:
-      "Browse the hottest repositories across daily, weekly, and monthly timeframes to stay on top of what the community is building.",
+      "Browse a curated weekly snapshot of fast-rising repositories to stay on top of what the community is building.",
   },
   {
     icon: Search,
-    title: "Powerful Search",
+    title: "Snapshot Search",
     description:
-      "Search across millions of GitHub repositories with advanced filters for language, sort order, and more.",
+      "Search within each weekly snapshot using repository names, descriptions, summaries, tags, and language filters.",
   },
   {
     icon: Globe,
     title: "Language Filtering",
     description:
-      "Filter trending and search results by programming language to find projects in your tech stack.",
+      "Filter snapshot results by programming language to find projects in your tech stack faster.",
   },
   {
     icon: Zap,
-    title: "Real-Time Data",
+    title: "Snapshot Pipeline",
     description:
-      "All data is fetched directly from the GitHub API, ensuring you always see the latest trending projects.",
+      "Trending data is collected by a backend pipeline and published as static JSON for a fast, reliable browsing experience.",
   },
 ]
 
@@ -54,10 +54,10 @@ export default function AboutPage() {
         <section className="flex flex-col gap-3">
           <p className="text-sm leading-relaxed text-muted-foreground">
             GitTrends is a free, open-source tool that helps developers discover
-            trending repositories on GitHub. Whether you are looking for
-            inspiration, staying up to date with the latest tools, or exploring
-            new programming languages, GitTrends makes it easy to find what is
-            popular in the open-source world.
+            weekly trending repositories on GitHub. Whether you are looking for
+            inspiration, staying up to date with the latest tools, or scanning
+            for projects in a specific stack, GitTrends makes it easy to browse
+            a curated weekly digest of what is getting traction in open source.
           </p>
         </section>
 
@@ -91,10 +91,11 @@ export default function AboutPage() {
             How It Works
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            GitTrends uses the public GitHub Search API to find repositories
-            created or updated within specific time ranges, sorted by
-            popularity. The daily view shows repos created in the last 24 hours,
-            weekly covers the past 7 days, and monthly spans the last 30 days.
+            GitTrends uses a weekly snapshot pipeline to collect trending
+            repository data from GitHub, normalize it into a static JSON
+            dataset, and publish that dataset for the frontend to browse. The
+            site focuses on a single weekly cadence in this MVP so the browsing
+            experience stays fast and predictable.
           </p>
         </section>
 
@@ -102,8 +103,9 @@ export default function AboutPage() {
           <h2 className="text-lg font-semibold text-foreground">Disclaimer</h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
             GitTrends is not affiliated with, endorsed by, or sponsored by
-            GitHub, Inc. All repository data is publicly available through the
-            GitHub API. GitHub and the GitHub logo are trademarks of GitHub, Inc.
+            GitHub, Inc. Repository metadata originates from publicly available
+            GitHub data and is republished here as a curated weekly snapshot.
+            GitHub and the GitHub logo are trademarks of GitHub, Inc.
           </p>
         </section>
       </div>

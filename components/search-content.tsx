@@ -2,56 +2,102 @@
 
 import React from "react"
 
-import { useState, useCallback } from "react"
-import useSWR from "swr"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { LANGUAGES } from "@/lib/languages"
 import { RepoCard, RepoCardSkeleton } from "@/components/repo-card"
 import { Search, ChevronLeft, ChevronRight, AlertCircle } from "lucide-react"
-
-const fetcher = (url: string) =>
-  fetch(url, {
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-    },
-  }).then((res) => res.json())
+import { filterByLanguage, getLatestSnapshot, searchInSnapshot } from "@/lib/snapshot"
+import type { TrendingRepo } from "@/lib/types"
 
 const SORT_OPTIONS = [
+  { value: "rank", label: "Weekly Rank" },
   { value: "stars", label: "Stars" },
   { value: "forks", label: "Forks" },
-  { value: "updated", label: "Recently Updated" },
-  { value: "help-wanted-issues", label: "Help Wanted" },
+  { value: "watchers", label: "Watchers" },
 ]
 
+const ITEMS_PER_PAGE = 20
+
 export function SearchContent() {
+  const [repos, setRepos] = useState<TrendingRepo[]>([])
   const [query, setQuery] = useState("")
   const [submittedQuery, setSubmittedQuery] = useState("")
   const [language, setLanguage] = useState("")
-  const [sort, setSort] = useState("stars")
+  const [sort, setSort] = useState("rank")
   const [page, setPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  let fullQuery = submittedQuery
-  if (language) {
-    fullQuery += ` language:${language}`
-  }
+  useEffect(() => {
+    let cancelled = false
 
-  const params = new URLSearchParams({
-    q: fullQuery,
-    sort,
-    order: "desc",
-    per_page: "25",
-    page: String(page),
-  })
+    async function loadSnapshot() {
+      try {
+        setIsLoading(true)
+        setError(null)
+        const snapshot = await getLatestSnapshot()
+        if (!cancelled) {
+          setRepos(snapshot.repos)
+        }
+      } catch (loadError) {
+        if (!cancelled) {
+          setError(
+            loadError instanceof Error
+              ? loadError.message
+              : "Failed to load weekly snapshot."
+          )
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false)
+        }
+      }
+    }
 
-  const { data, error, isLoading } = useSWR(
-    submittedQuery
-      ? `https://api.github.com/search/repositories?${params.toString()}`
-      : null,
-    fetcher,
-    { revalidateOnFocus: false, keepPreviousData: true }
+    loadSnapshot()
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const searchedRepos = useMemo(
+    () => searchInSnapshot(repos, submittedQuery),
+    [repos, submittedQuery]
   )
 
-  const repos = data?.items || []
-  const totalCount = data?.total_count || 0
+  const filteredRepos = useMemo(
+    () => filterByLanguage(searchedRepos, language),
+    [language, searchedRepos]
+  )
+
+  const sortedRepos = useMemo(() => {
+    const items = [...filteredRepos]
+
+    switch (sort) {
+      case "stars":
+        items.sort((a, b) => b.stars - a.stars || a.rank - b.rank)
+        break
+      case "forks":
+        items.sort((a, b) => b.forks - a.forks || a.rank - b.rank)
+        break
+      case "watchers":
+        items.sort((a, b) => b.watchers - a.watchers || a.rank - b.rank)
+        break
+      default:
+        items.sort((a, b) => a.rank - b.rank || b.stars - a.stars)
+        break
+    }
+
+    return items
+  }, [filteredRepos, sort])
+
+  const totalCount = sortedRepos.length
+  const totalPages = Math.max(1, Math.ceil(totalCount / ITEMS_PER_PAGE))
+  const paginatedRepos = sortedRepos.slice(
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE
+  )
 
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
@@ -124,13 +170,13 @@ export function SearchContent() {
       {error && (
         <div className="flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive">
           <AlertCircle className="h-4 w-4 flex-shrink-0" />
-          <span>Failed to search repositories. Please try again later.</span>
+          <span>{error}</span>
         </div>
       )}
 
       {submittedQuery && !error && !isLoading && totalCount > 0 && (
         <p className="text-sm text-muted-foreground">
-          Found {totalCount.toLocaleString()} repositories for{" "}
+          Found {totalCount.toLocaleString()} repositories in the latest weekly snapshot for{" "}
           <span className="font-medium text-foreground">{`"${submittedQuery}"`}</span>
         </p>
       )}
@@ -140,16 +186,15 @@ export function SearchContent() {
           ? Array.from({ length: 8 }).map((_, i) => (
               <RepoCardSkeleton key={`skeleton-${i}`} />
             ))
-          : repos.map((repo: any, i: number) => (
+          : paginatedRepos.map((repo) => (
               <RepoCard
-                key={repo.id}
+                key={repo.github_repo_id}
                 repo={repo}
-                rank={(page - 1) * 25 + i + 1}
               />
             ))}
       </div>
 
-      {!isLoading && repos.length > 0 && (
+      {!isLoading && paginatedRepos.length > 0 && (
         <div className="flex items-center justify-center gap-3 pt-2">
           <button
             type="button"
@@ -160,11 +205,13 @@ export function SearchContent() {
             <ChevronLeft className="h-4 w-4" />
             Previous
           </button>
-          <span className="text-sm text-muted-foreground">Page {page}</span>
+          <span className="text-sm text-muted-foreground">
+            Page {page} of {totalPages}
+          </span>
           <button
             type="button"
-            disabled={repos.length < 25}
-            onClick={() => setPage((p) => p + 1)}
+            disabled={page >= totalPages}
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             className="flex items-center gap-1 rounded-md border border-border bg-secondary px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
           >
             Next
@@ -182,13 +229,14 @@ export function SearchContent() {
             Start exploring
           </p>
           <p className="max-w-md text-sm text-muted-foreground">
-            Search for repositories by name, description, or topic. Filter by
-            language and sort by stars, forks, or recent updates.
+            Search within the latest weekly snapshot by repository name,
+            description, AI summary, or tags. Filter by language and sort the
+            ranked results.
           </p>
         </div>
       )}
 
-      {submittedQuery && !isLoading && repos.length === 0 && !error && (
+      {submittedQuery && !isLoading && totalCount === 0 && !error && (
         <div className="flex flex-col items-center gap-2 py-16 text-center">
           <p className="text-lg font-medium text-foreground">
             No results found

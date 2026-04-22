@@ -29,32 +29,30 @@ export default function PrivacyPage() {
             Information We Collect
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            GitTrends is a client-side application that does not collect, store,
-            or process any personal information. We do not require user accounts,
-            and we do not track individual users.
+            GitTrends does not require user accounts and does not ask visitors
+            to submit personal information in order to browse weekly trending
+            snapshots.
           </p>
         </section>
 
         <section className="flex flex-col gap-3">
           <h2 className="text-lg font-semibold text-foreground">
-            GitHub API Usage
+            Repository Data
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            GitTrends uses the public GitHub REST API to fetch repository data.
-            All data displayed on this site is publicly available through the
-            GitHub API. We do not modify, store, or cache any personal user data
-            from GitHub beyond temporary server-side API response caching for
-            performance.
+            Repository metadata displayed on GitTrends is collected by a backend
+            pipeline on a scheduled basis and published as static snapshot
+            files. The frontend does not directly request third-party GitHub
+            APIs from your browser while you browse the site.
           </p>
         </section>
 
         <section className="flex flex-col gap-3">
           <h2 className="text-lg font-semibold text-foreground">Cookies</h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            GitTrends does not use cookies or any form of local storage to track
-            user behavior. Your preferences such as time range and language
-            filters are stored only in the current session state and are not
-            persisted.
+            GitTrends does not use cookies or persistent local storage to create
+            user profiles. Temporary UI state such as active filters may exist
+            only for the current page session.
           </p>
         </section>
 
@@ -66,7 +64,9 @@ export default function PrivacyPage() {
             Our application may be hosted on platforms that collect standard web
             server logs (IP addresses, browser type, pages visited) for
             operational purposes. These logs are handled by the hosting
-            provider{"'"}s privacy policy.
+            provider{"'"}s privacy policy. We may also use analytics or
+            advertising integrations that are configured at the site level
+            rather than through direct GitHub API calls.
           </p>
         </section>
 

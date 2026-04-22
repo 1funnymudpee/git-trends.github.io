@@ -3,7 +3,7 @@ import { Search } from "lucide-react"
 
 export const metadata = {
   title: "Search Repositories - GitTrends",
-  description: "Search across millions of GitHub repositories by name, topic, or language.",
+  description: "Search within curated weekly trending snapshots by name, tag, or language.",
 }
 
 export default function SearchPage() {
@@ -19,7 +19,7 @@ export default function SearchPage() {
           </h1>
         </div>
         <p className="text-muted-foreground">
-          Search across millions of GitHub repositories by name, topic, or language.
+          Search within the latest weekly trending snapshot by name, topic, summary, or language.
         </p>
       </div>
       <SearchContent />
