@@ -41,10 +41,18 @@
       "created_at": "2026-04-18T12:57:52Z",
       "rank": 1,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A Python project reconstructing Claude Mythos from research literature, drawing strong interest as a top-trending AI repo.",
+      "summary_medium": "OpenMythos is a theoretical, first-principles reconstruction of the Claude Mythos architecture based on publicly available research literature. It targets AI and transformer architecture exploration, with topics spanning attention, looped transformers, PyTorch, and JAX. Its high star count and #1 weekly rank make it notable among trending open-source AI projects.",
+      "tags": [
+        "ai",
+        "python",
+        "transformers",
+        "attention",
+        "pytorch",
+        "jax",
+        "research-reconstruction"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1213049020,
@@ -64,10 +72,17 @@
       "created_at": "2026-04-17T01:56:15Z",
       "rank": 2,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A self-healing Python browser harness that helps LLMs reliably complete browser-based tasks.",
+      "summary_medium": "browser-harness is a Python tool for automating browser interactions with a self-healing approach designed for LLM-driven tasks. It focuses on helping language models complete browser-based workflows more reliably, even when page structures change. Its strong star count and top weekly ranking indicate significant developer interest and rapid momentum.",
+      "tags": [
+        "python",
+        "browser-automation",
+        "llm",
+        "ai-agents",
+        "self-healing",
+        "web-testing"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1215145625,
@@ -87,10 +102,18 @@
       "created_at": "2026-04-19T14:42:06Z",
       "rank": 3,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "HTML-native design toolkit for Claude Code to build prototypes, slides, animations, and MP4 exports.",
+      "summary_medium": "Huashu Design is an HTML-native design skill aimed at Claude Code, while also being agent-agnostic. It focuses on creating high-fidelity prototypes, slide decks, and animations, and includes MP4 export support. Its bundled design philosophy and multi-dimensional review approach likely help it stand out and drive its strong trending rank.",
+      "tags": [
+        "html",
+        "design",
+        "claude-code",
+        "prototyping",
+        "presentation",
+        "animation",
+        "mp4-export"
+      ],
+      "category": "frontend"
     },
     {
       "github_repo_id": 1216173720,
@@ -110,10 +133,16 @@
       "created_at": "2026-04-20T16:35:19Z",
       "rank": 4,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "Kami is a stylish web project for presenting great content with a paper-like reading experience.",
+      "summary_medium": "Kami is an HTML-based project centered on the idea that high-quality content deserves equally polished presentation. It appears focused on delivering a paper-like reading or publishing experience on the web. Its strong star count and high weekly rank suggest it is trending because of its elegant approach to content presentation and design appeal.",
+      "tags": [
+        "html",
+        "content",
+        "reading",
+        "publishing",
+        "web-design"
+      ],
+      "category": "frontend"
     },
     {
       "github_repo_id": 1214290850,
@@ -140,10 +169,17 @@
       "created_at": "2026-04-18T11:22:14Z",
       "rank": 5,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A popular curated list of GPT-Image-2 prompts and examples for creating portraits, posters, UI mockups, and more.",
+      "summary_medium": "This repository collects GPT-Image-2 prompts alongside image examples to help users explore and reuse effective prompting patterns. It covers multiple creative use cases including portraits, posters, UI mockups, character sheets, and community experiments. Its broad prompt library and strong community interest likely explain its high trending rank.",
+      "tags": [
+        "ai",
+        "image-generation",
+        "gpt-image-2",
+        "prompts",
+        "awesome-list",
+        "ai-art"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1212769188,
@@ -163,10 +199,17 @@
       "created_at": "2026-04-16T18:01:16Z",
       "rank": 6,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A curated set of 13 clean HTML+SVG diagram templates for Claude Code, popular for avoiding Mermaid-style clutter.",
+      "summary_medium": "This repository provides thirteen editorial diagram types designed for use with Claude Code. The diagrams are self-contained in HTML and SVG, emphasizing clean visuals without shadows or Mermaid-style output. It's trending because it offers a polished, lightweight alternative for generating presentation-ready diagrams.",
+      "tags": [
+        "html",
+        "svg",
+        "diagrams",
+        "claude-code",
+        "templates",
+        "visualization"
+      ],
+      "category": "frontend"
     },
     {
       "github_repo_id": 1212241202,
@@ -186,10 +229,18 @@
       "created_at": "2026-04-16T07:36:06Z",
       "rank": 7,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A Python stock analysis toolkit that applies elite investor-style signals across A/HK/US markets.",
+      "summary_medium": "UZI-Skill is a Python-based market analysis project for A-shares, Hong Kong stocks, and U.S. equities. It combines 22 dimensions of data, 180 quantitative rules, 17 institutional analysis methods, and perspectives inspired by 51 well-known investors to help users evaluate market conditions. Its strong star growth and high weekly ranking suggest rising interest from retail and quantitative trading communities.",
+      "tags": [
+        "python",
+        "stock-analysis",
+        "quantitative-trading",
+        "finance",
+        "a-shares",
+        "hong-kong-stocks",
+        "us-stocks"
+      ],
+      "category": "data"
     },
     {
       "github_repo_id": 1214125715,
@@ -215,10 +266,17 @@
       "created_at": "2026-04-18T06:40:04Z",
       "rank": 8,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A curated set of 68 Claude Design system prompts that help scaffold full UIs in one shot.",
+      "summary_medium": "This repository collects 68 ready-to-use design system inspirations in DESIGN.md format for Claude-based UI generation. It helps users quickly bootstrap full interfaces by dropping in a design spec instead of building from scratch. Its strong GitHub traction suggests growing interest in prompt-driven design workflows and rapid UI scaffolding.",
+      "tags": [
+        "ai",
+        "design-system",
+        "claude-code",
+        "figma",
+        "ui-generation",
+        "design-md"
+      ],
+      "category": "frontend"
     },
     {
       "github_repo_id": 1214028719,
@@ -259,10 +317,18 @@
       "created_at": "2026-04-18T03:14:33Z",
       "rank": 9,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "An open-source, local-first Claude Design alternative for turning prompts into prototypes, slides, and PDFs.",
+      "summary_medium": "Open Codesign is an open-source desktop app that lets users turn prompts into prototypes, slides, and PDFs while bringing their own Claude Code or Codex API keys. It supports multiple models including Claude, GPT, Gemini, Kimi, GLM, and Ollama, with a local-first approach and MIT licensing. It's trending as a flexible alternative to Claude Design and similar closed design-generation tools.",
+      "tags": [
+        "ai-design",
+        "typescript",
+        "electron",
+        "local-first",
+        "multi-model",
+        "byok",
+        "ui-generator"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1213797717,
@@ -289,10 +355,17 @@
       "created_at": "2026-04-17T19:18:03Z",
       "rank": 10,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A public Bitcoin trading dataset since 2020, notable for its open market context and strong GitHub interest.",
+      "summary_medium": "This repository provides public BTC trading context dating back to 2020. Based on its description and topics, it appears focused on open trading intelligence around Bitcoin and BitMEX, making it useful as a dataset for crypto market analysis. Its high star count and top weekly ranking suggest strong interest from the trading and crypto data community.",
+      "tags": [
+        "bitcoin",
+        "crypto",
+        "trading",
+        "dataset",
+        "open-intelligence",
+        "bitmex"
+      ],
+      "category": "data"
     },
     {
       "github_repo_id": 1214105808,
@@ -316,10 +389,18 @@
       "created_at": "2026-04-18T06:02:44Z",
       "rank": 11,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "An OpenAI-compatible Go gateway reverse-engineered from chatgpt.com with image generation and high concurrency.",
+      "summary_medium": "gpt2api is a Go-based SaaS gateway that provides an OpenAI-compatible API by reverse-engineering chatgpt.com. It highlights stable GPT-IMAGE-2 support, batch image generation, multi-account pooling, high-concurrency scheduling, and points-based billing. Its strong feature set for API compatibility and scalable usage likely explains why it is trending.",
+      "tags": [
+        "go",
+        "openai-compatible",
+        "chatgpt",
+        "api-gateway",
+        "image-generation",
+        "saas",
+        "high-concurrency"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1215001317,
@@ -339,10 +420,14 @@
       "created_at": "2026-04-19T10:49:46Z",
       "rank": 12,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A TypeScript repository gaining traction on GitHub despite having no public description or topics.",
+      "summary_medium": "This repository is written in TypeScript and is currently ranking highly on GitHub's weekly trending list. While it has no description or listed topics, its strong star and fork counts suggest growing developer interest. Its popularity likely comes from the project itself resonating with users, even though the metadata is sparse.",
+      "tags": [
+        "typescript",
+        "github-trending",
+        "open-source"
+      ],
+      "category": "other"
     },
     {
       "github_repo_id": 1215413339,
@@ -362,10 +447,15 @@
       "created_at": "2026-04-19T21:58:46Z",
       "rank": 13,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A Python project gaining traction on GitHub, notable for its strong star growth despite limited public metadata.",
+      "summary_medium": "advisor-ledger is a Python repository that is currently trending on GitHub, reaching a high weekly rank with substantial stars and forks. Its exact purpose is unclear because no description or topics are provided. The repo is notable right now mainly for its popularity and community interest rather than documented features.",
+      "tags": [
+        "python",
+        "github-trending",
+        "open-source",
+        "community-interest"
+      ],
+      "category": "other"
     },
     {
       "github_repo_id": 1212023769,
@@ -394,10 +484,19 @@
       "created_at": "2026-04-16T01:44:04Z",
       "rank": 14,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A portable open-source PDF editor for Windows with no installer, account, subscription, or telemetry.",
+      "summary_medium": "KillerPDF is a Windows PDF editor built in C# and WPF, focused on being portable and easy to use without installation. It emphasizes a privacy-friendly, no-lock-in experience with no account requirement, subscription, or telemetry, and is released under GPLv3. Its strong traction on GitHub likely comes from offering a simple open-source alternative to proprietary PDF tools.",
+      "tags": [
+        "pdf",
+        "pdf-editor",
+        "windows",
+        "csharp",
+        "wpf",
+        "dotnet",
+        "portable",
+        "opensource"
+      ],
+      "category": "devtools"
     },
     {
       "github_repo_id": 1214741287,
@@ -417,10 +516,17 @@
       "created_at": "2026-04-19T01:35:57Z",
       "rank": 15,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "High-fidelity HTML design guidance that helps AI agents create polished prototypes.",
+      "summary_medium": "This repository provides guidance for generating high-fidelity HTML designs and prototypes, aimed specifically at AI agents. Its focus is on improving the quality and structure of agent-produced UI mockups and front-end prototypes. It is trending due to strong community interest in better design-oriented workflows for AI-generated interfaces.",
+      "tags": [
+        "html",
+        "design",
+        "prototyping",
+        "ai-agents",
+        "javascript",
+        "ui-ux"
+      ],
+      "category": "frontend"
     },
     {
       "github_repo_id": 1212211911,
@@ -440,10 +546,14 @@
       "created_at": "2026-04-16T07:00:13Z",
       "rank": 16,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "Nemesis is a popular JavaScript repository trending strongly despite having no public description.",
+      "summary_medium": "Nemesis is a JavaScript project from assai-id that is currently trending with strong community attention. While the repository provides no description or topics, its star, fork, and weekly rank signals indicate notable developer interest. Based on the available metadata, it stands out primarily for its momentum and engagement rather than documented features.",
+      "tags": [
+        "javascript",
+        "github-trending",
+        "community-interest"
+      ],
+      "category": "other"
     },
     {
       "github_repo_id": 1215868605,
@@ -463,10 +573,16 @@
       "created_at": "2026-04-20T10:32:26Z",
       "rank": 17,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A Python-based HTTP relay VPN project gaining traction despite having little public documentation.",
+      "summary_medium": "MasterHttpRelayVPN appears to be a Python project focused on HTTP relay VPN functionality. With no repository description or topics provided, the exact feature set is unclear, but its name suggests networking or proxy-style VPN use cases. Its high star count and strong weekly ranking indicate growing community interest.",
+      "tags": [
+        "python",
+        "vpn",
+        "http-relay",
+        "networking",
+        "proxy"
+      ],
+      "category": "infra"
     },
     {
       "github_repo_id": 1212064523,
@@ -486,10 +602,17 @@
       "created_at": "2026-04-16T02:58:42Z",
       "rank": 18,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A Python pipeline that turns encrypted WeChat Favorites data into an interactive HTML report.",
+      "summary_medium": "This repository provides an end-to-end workflow for visualizing WeChat Favorites data, starting from an encrypted database and producing an interactive HTML report. Built in Python, it focuses on transforming otherwise hard-to-access saved content into a readable, shareable format. Its clear practical use case and polished reporting pipeline likely contribute to its strong trending status.",
+      "tags": [
+        "python",
+        "wechat",
+        "data-visualization",
+        "html-report",
+        "database",
+        "automation"
+      ],
+      "category": "data"
     },
     {
       "github_repo_id": 1213214246,
@@ -513,10 +636,18 @@
       "created_at": "2026-04-17T06:42:43Z",
       "rank": 19,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A TypeScript browser extension that converts any web page into clean, readable Markdown in one click.",
+      "summary_medium": "MD-This-Page is a browser extension that turns web pages into clean Markdown for easier reading, saving, or reuse. Built in TypeScript, it targets both Chrome and Firefox and focuses on making page-to-Markdown conversion simple with one-click usage. Its cross-browser appeal and practical utility likely contribute to its current GitHub trending status.",
+      "tags": [
+        "typescript",
+        "markdown",
+        "browser-extension",
+        "chrome-extension",
+        "firefox-extension",
+        "web-tools",
+        "content-conversion"
+      ],
+      "category": "devtools"
     },
     {
       "github_repo_id": 1212004868,
@@ -536,10 +667,17 @@
       "created_at": "2026-04-16T01:08:18Z",
       "rank": 20,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A Rust CLI and daemon for accessing local WeChat data, gaining attention as a niche utility tool.",
+      "summary_medium": "wx-cli is a Rust-based command-line tool for working with local WeChat data using a daemon architecture. It targets users who need programmatic or CLI access to locally stored WeChat information rather than a graphical interface. Its trending status likely comes from its practical utility, focused scope, and interest around WeChat data tooling.",
+      "tags": [
+        "rust",
+        "cli",
+        "wechat",
+        "local-data",
+        "daemon",
+        "messaging"
+      ],
+      "category": "devtools"
     },
     {
       "github_repo_id": 1212163658,
@@ -568,10 +706,19 @@
       "created_at": "2026-04-16T05:54:32Z",
       "rank": 21,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "Turns book knowledge into executable agent skills, blending distillation, templates, and workflow automation.",
+      "summary_medium": "This repository focuses on distilling the contents of a book into executable Agent Skills that can be reused in AI workflows. It appears centered on prompt engineering, templates, and skill-generation patterns for turning knowledge into actionable automation. Its high weekly ranking suggests strong interest in practical methods for packaging structured knowledge into reusable AI skills.",
+      "tags": [
+        "ai",
+        "agent-workflows",
+        "ai-skills",
+        "automation",
+        "knowledge-distillation",
+        "prompt-engineering",
+        "templates",
+        "skill-generator"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1214488641,
@@ -591,10 +738,17 @@
       "created_at": "2026-04-18T16:40:44Z",
       "rank": 22,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A Python-based causal digital twin for simulating marketing decisions before spending real budget.",
+      "summary_medium": "oransim is a Python project for building a causal digital twin of marketing performance, helping teams predict the impact of decisions before committing spend. Its positioning centers on marketing simulation at scale and decision forecasting. It appears to be trending because it applies causal modeling to a high-value business use case with a clear practical payoff.",
+      "tags": [
+        "python",
+        "marketing",
+        "causal-inference",
+        "digital-twin",
+        "simulation",
+        "forecasting"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1214119020,
@@ -614,10 +768,15 @@
       "created_at": "2026-04-18T06:27:50Z",
       "rank": 23,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A TypeScript-based auto-registration tool for Kiro that is gaining strong GitHub attention.",
+      "summary_medium": "kiro-auto appears to be an automation tool for registering Kiro accounts or services. Built in TypeScript, it focuses on simplifying or automating a repetitive registration workflow. Its high weekly ranking and growing star count suggest strong community interest and active visibility.",
+      "tags": [
+        "typescript",
+        "automation",
+        "registration",
+        "account-tool"
+      ],
+      "category": "devtools"
     },
     {
       "github_repo_id": 1214788016,
@@ -637,10 +796,17 @@
       "created_at": "2026-04-19T03:40:28Z",
       "rank": 24,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A drop-in AGENTS.md that makes coding agents act more like disciplined senior engineers.",
+      "summary_medium": "This repository provides an AGENTS.md prompt/config intended to improve the behavior of coding agents during software work. It emphasizes reducing sycophancy, avoiding unnecessary refactors, and enforcing verification loops, while drawing on principles from Andrej Karpathy and Boris Cherny's Claude Code workflow. Its broad compatibility with tools like Claude Code, Codex, Gemini CLI, Cursor, and the open standard likely contributes to its traction.",
+      "tags": [
+        "ai",
+        "agents",
+        "prompt-engineering",
+        "developer-workflow",
+        "coding-assistants",
+        "llm-tools"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1215153409,
@@ -660,10 +826,16 @@
       "created_at": "2026-04-19T14:53:01Z",
       "rank": 25,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A TypeScript project that likely bridges ChatGPT to an API interface and is gaining notable GitHub traction.",
+      "summary_medium": "This repository appears to provide an API-oriented interface around ChatGPT, implemented in TypeScript. With no description or topics provided, the exact feature set is unclear, but its name strongly suggests a ChatGPT-to-API bridge or wrapper. Its relatively high star count and strong weekly rank indicate rising community interest.",
+      "tags": [
+        "typescript",
+        "chatgpt",
+        "api",
+        "wrapper",
+        "github-trending"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1213975621,
@@ -683,10 +855,18 @@
       "created_at": "2026-04-18T01:08:34Z",
       "rank": 26,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A Go-based OpenAI-compatible Freebuff proxy with agent tracking, token rotation, and Docker deployment.",
+      "summary_medium": "Freebuff2API is a Go proxy that exposes an OpenAI-compatible interface for Freebuff. It includes dynamic free-agent tracking and token rotation to help manage access more reliably, and it ships with ready-to-use Docker deployment for easier setup. Its combination of compatibility, operational features, and simple deployment likely contributes to its trending popularity.",
+      "tags": [
+        "go",
+        "openai-compatible",
+        "proxy",
+        "api",
+        "docker",
+        "token-rotation",
+        "llm"
+      ],
+      "category": "backend"
     },
     {
       "github_repo_id": 1214412003,
@@ -715,10 +895,18 @@
       "created_at": "2026-04-18T14:42:02Z",
       "rank": 27,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "MDV is a TypeScript Markdown superset for docs, dashboards, and slides with data viz and export tools.",
+      "summary_medium": "MDV extends Markdown to create documents, dashboards, and slide decks with embedded data and visualizations. It supports HTML and PDF export, live preview, and a VS Code extension for authoring. Its mix of publishing, dashboarding, and developer-friendly tooling helps explain why it's gaining attention.",
+      "tags": [
+        "markdown",
+        "typescript",
+        "data-visualization",
+        "dashboards",
+        "slides",
+        "cli",
+        "vscode-extension"
+      ],
+      "category": "devtools"
     },
     {
       "github_repo_id": 1213076887,
@@ -738,10 +926,16 @@
       "created_at": "2026-04-17T02:46:48Z",
       "rank": 28,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A Swift permission dialog that recreates the accessibility settings prompt seen in Codex Computer Use.",
+      "summary_medium": "Permiso is a Swift UI component for showing a permission dialog related to accessibility settings. It appears to replicate the permission flow seen in Codex Computer Use, making it useful for developers building similar macOS experiences. Its focused purpose and recognizable interaction pattern likely helped it gain attention on GitHub.",
+      "tags": [
+        "swift",
+        "macos",
+        "permissions",
+        "accessibility",
+        "ui-component"
+      ],
+      "category": "frontend"
     },
     {
       "github_repo_id": 1215974868,
@@ -765,10 +959,18 @@
       "created_at": "2026-04-20T12:46:31Z",
       "rank": 29,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "A TypeScript AI agent for 24/7 CLI and Telegram use with hardened permissions and token budgets.",
+      "summary_medium": "Mercury Agent is a TypeScript-based AI agent designed to run continuously through the CLI or Telegram. It emphasizes safer autonomous operation with permission-hardened tools and token budget controls, alongside multi-channel access. Its combination of practical deployment options and safety-oriented agent features likely contributes to its trending momentum.",
+      "tags": [
+        "ai",
+        "ai-agent",
+        "llm",
+        "typescript",
+        "cli",
+        "telegram",
+        "ai-assistant"
+      ],
+      "category": "ai"
     },
     {
       "github_repo_id": 1214542327,
@@ -788,10 +990,17 @@
       "created_at": "2026-04-18T18:06:49Z",
       "rank": 30,
       "snapshot_date": "2026-04-22",
-      "summary_short": null,
-      "summary_medium": null,
-      "tags": null,
-      "category": null
+      "summary_short": "Aube is a fast Node.js package manager built in Rust, drawing attention for speed-focused JS tooling.",
+      "summary_medium": "Aube is a Node.js package manager designed to provide a faster package management experience. Built in Rust, it stands out as a performance-oriented alternative in the JavaScript tooling ecosystem. Its rising GitHub rank suggests growing interest from developers looking for faster dependency workflows.",
+      "tags": [
+        "nodejs",
+        "package-manager",
+        "rust",
+        "javascript-tooling",
+        "performance",
+        "developer-tools"
+      ],
+      "category": "devtools"
     },
     {
       "github_repo_id": 1212478962,

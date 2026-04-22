@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "fetch-weekly": "node scripts/fetch-weekly.mjs"
+    "fetch-weekly": "node scripts/fetch-weekly.mjs",
+    "enrich-ai": "node scripts/enrich-ai.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
