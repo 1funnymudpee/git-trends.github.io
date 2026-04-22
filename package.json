@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "fetch-weekly": "node scripts/fetch-weekly.mjs",
-    "enrich-ai": "node scripts/enrich-ai.mjs"
+    "enrich-ai": "node scripts/enrich-ai.mjs",
+    "generate-report": "node scripts/generate-report.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -24,6 +25,7 @@
     "react": "^19",
     "react-dom": "^19",
     "react-hook-form": "^7.54.1",
+    "react-markdown": "^10.1.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",
     "sonner": "^1.7.1",

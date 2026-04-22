@@ -3,11 +3,12 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Search, TrendingUp, Menu, X } from "lucide-react"
+import { Search, TrendingUp, Menu, X, FileText } from "lucide-react"
 import { useState } from "react"
 
 const navLinks = [
   { href: "/", label: "Trending", icon: TrendingUp },
+  { href: "/report", label: "Report", icon: FileText },
   { href: "/search", label: "Search", icon: Search },
 ]
 

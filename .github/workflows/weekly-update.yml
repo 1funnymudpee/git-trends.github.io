@@ -44,6 +44,14 @@ jobs:
           AI_TOP_N: "30"
         run: npm run enrich-ai
 
+      - name: Generate weekly report
+        continue-on-error: true
+        env:
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          AI_BASE_URL: ${{ secrets.AI_BASE_URL }}
+          AI_MODEL: ${{ secrets.AI_MODEL }}
+        run: npm run generate-report
+
       - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
